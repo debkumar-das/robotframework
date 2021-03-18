@@ -1,6 +1,6 @@
 *** Settings ***
-Suite Setup       Run Tests    --listener ${DATADIR}/output/listeners/v3.py -l l -r r -b d -x x    misc/pass_and_fail.robot
-Resource          atest_resource.robot
+Suite Setup       Run Tests    --listener ${LISTENER DIR}/v3.py -l l -r r -b d -x x    misc/pass_and_fail.robot
+Resource          listener_resource.robot
 
 *** Variables ***
 ${SEPARATOR}      ${EMPTY + '-' * 78}
@@ -36,11 +36,9 @@ Test status and message can be changed
 
 Changing test status in end suite changes console output, but not output.xml
     Stdout Should Contain     SEPARATOR=\n
-    ...    5 critical tests, 5 passed, 0 failed
-    ...    5 tests total, 5 passed, 0 failed
+    ...    5 tests, 5 passed, 0 failed
     ${from output.xml} =    Catenate    SEPARATOR=\n
-    ...    5 critical tests, 2 passed, 3 failed
-    ...    5 tests total, 2 passed, 3 failed
+    ...    5 tests, 2 passed, 3 failed
     Should be equal    ${SUITE.stat_message}     ${from output.xml}
 
 Test tags can be modified
